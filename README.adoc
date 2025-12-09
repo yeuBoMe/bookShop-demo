@@ -19,16 +19,16 @@ Brute-force secret key của JWT (HS256) → Forge token mới với role = ADMI
 == Hướng dẫn thực hiện demo (từng bước)
 
 === B1: Đăng nhập để lấy token
-image::image-2025-12-09-10-17-17-595.png[Login]
+image-2025-12-09-10-17-17-595.png[Login]
 
 === B2: Lấy access token từ response của server
-image::image-2025-12-09-10-19-04-374.png[Access Token]
+image-2025-12-09-10-19-04-374.png[Access Token]
 
 === B3: Phân tích JWT → xác định thuật toán HS256
-image::image-2025-12-09-10-19-38-450.png[Phân tích JWT]
+image-2025-12-09-10-19-38-450.png[Phân tích JWT]
 
 === B4: Tạo wordlist các secret key yếu 32-byte trong thư mục hashcat
-image::image-2025-12-09-10-20-06-463.png[Tạo wordlist]
+image-2025-12-09-10-20-06-463.png[Tạo wordlist]
 
 === B5: Chạy hashcat để crack secret key
 Mở terminal/cmd tại thư mục chứa hashcat.exe và chạy:
@@ -42,11 +42,11 @@ Mở terminal/cmd tại thư mục chứa hashcat.exe và chạy:
 - `weak_32byte_plain.txt`: danh sách các secret key yếu
 
 Kết quả → Cracked thành công trong vài giây
-image::image-2025-12-09-10-22-44-388.png[Hashcat cracked]
+image-2025-12-09-10-22-44-388.png[Hashcat cracked]
 
 === B6: Forge token mới với role = ADMIN bằng Python
 Script `forge.py` đã có sẵn trong thư mục hashcat
-image::image-2025-12-09-10-23-53-465.png[Script forge.py]
+image-2025-12-09-10-23-53-465.png[Script forge.py]
 
 Chạy lệnh:
 [source,bash]
@@ -55,15 +55,15 @@ python forge.py
 ----
 
 Kết quả: Token giả mạo có claim "role": "ADMIN"
-image::image-2025-12-09-10-24-43-668.png[Fake ADMIN token]
+image-2025-12-09-10-24-43-668.png[Fake ADMIN token]
 
 === B7: So sánh trước và sau khi tấn công
 
 *Trước khi crack (role = USER)*
-image::image-2025-12-09-10-25-51-415.png[Trước khi crack]
+image-2025-12-09-10-25-51-415.png[Trước khi crack]
 
 *Sau khi dùng token giả mạo (role = ADMIN)*
-image::image-2025-12-09-10-26-01-772.png[Sau khi crack]
+image-2025-12-09-10-26-01-772.png[Sau khi crack]
 
 == Kết luận & Bài học bảo mật
 - Tuyệt đối không dùng secret key yếu hoặc có độ dài < 32 byte thực sự ngẫu nhiên với HS256
